@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class hashfunc {
+public class HashAndAdd {
     public static void main(String[] args) {
         
         try {

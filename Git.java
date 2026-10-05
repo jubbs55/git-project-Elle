@@ -3,12 +3,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 
-public class direct{
+public class Git{
         public static void main(String[] args) {
-            initate();
+            initiate();
+            HashAndAdd.main(args);
 
     }
-    public static void initate(){
+    public static void initiate(){
     
 
             int x = 0;
