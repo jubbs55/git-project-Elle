@@ -6,7 +6,9 @@ import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HexFormat;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -24,7 +26,7 @@ public class HashAndAdd {
             System.out.println(blobFile);
             System.out.println(content);
 
-            writein("hello.txt");
+            addToIndex("hello.txt");
 
 
         } catch (IOException e) {
@@ -44,12 +46,25 @@ public class HashAndAdd {
         try {
             String hash = new String();
             hash = hashFile(filename);
-            FileWriter indexWriter = new FileWriter("git/index.txt");
-            indexWriter.write(hash + " " + filename);
-            System.lineSeparator();
+            File index = new File("git/index.txt");
+
+            StringBuilder oldContent = new StringBuilder();
+            BufferedReader br = new BufferedReader(new FileReader(index));
+
+            String oneLine = br.readLine();
+
+            while (oneLine != null) { 
+                oldContent.append(oneLine);
+                oneLine = br.readLine();
+            }
+            br.close();
+
+
+            FileWriter indexWriter = new FileWriter(index);
+            indexWriter.write(oldContent.toString());
+            indexWriter.write(hash + " " + filename + "\n");
             indexWriter.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
