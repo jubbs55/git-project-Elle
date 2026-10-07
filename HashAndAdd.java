@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 public class HashAndAdd {
 
+            addToIndex("hello.txt");
 
     public static void addToIndex(String filename){
         try {
@@ -30,6 +31,28 @@ public class HashAndAdd {
 
             while (oneLine != null) { 
                 oldContent.append(oneLine).append("\n");
+                oneLine = br.readLine();
+            }
+            br.close();
+
+
+
+        
+        
+    }
+    public static void addToIndex(String filename){
+        try {
+            String hash = new String();
+            hash = hashFile(filename);
+            File index = new File("git/index.txt");
+
+            StringBuilder oldContent = new StringBuilder();
+            BufferedReader br = new BufferedReader(new FileReader(index));
+
+            String oneLine = br.readLine();
+
+            while (oneLine != null) { 
+                oldContent.append(oneLine);
                 oneLine = br.readLine();
             }
             br.close();
