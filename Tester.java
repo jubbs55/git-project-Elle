@@ -4,6 +4,5 @@ public class Tester {
         HashAndAdd.addToIndex("hello.txt");
         HashAndAdd.addToIndex("jabba.txt");
         HashAndAdd.addToIndex("copy.txt");
-
     }
 }
