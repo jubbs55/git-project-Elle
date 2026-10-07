@@ -14,13 +14,13 @@ public class HashAndAdd {
     public static void main(String[] args) {
         
         try {
-            String sha1Hash;
-            sha1Hash = hashFile("hello.txt");
-            File blobFile = new File("git/objects/" + sha1Hash + ".txt");
-            FileWriter bw = new FileWriter("git/objects/" + sha1Hash + ".txt");
+            String hash;
+            hash = hashFile("hello.txt");
+            File blobFile = new File("git/objects/" + hash + ".txt");
+            FileWriter blobWriter = new FileWriter("git/objects/" + hash + ".txt");
             String content = new String(Files.readAllBytes(Paths.get("hello.txt")));
-            bw.write(content);//do file content;
-            bw.close();
+            blobWriter.write(content);//do file content;
+            blobWriter.close();
             System.out.println(blobFile);
             System.out.println(content);
 
@@ -40,14 +40,14 @@ public class HashAndAdd {
         
         
     }
-    public static void writein(String filename){
+    public static void addToIndex(String filename){
         try {
-            String sha1Hash = new String();
-            sha1Hash = hashFile(filename);
-            FileWriter bw = new FileWriter("git/index.txt");
-            bw.write(sha1Hash + " " + filename);
+            String hash = new String();
+            hash = hashFile(filename);
+            FileWriter indexWriter = new FileWriter("git/index.txt");
+            indexWriter.write(hash + " " + filename);
             System.lineSeparator();
-            bw.close();
+            indexWriter.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

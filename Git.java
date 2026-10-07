@@ -12,15 +12,15 @@ public class Git{
     public static void initiate(){
     
 
-            int x = 0;
+            int counter = 0;
             
-            File root = new File("git/");
-            if (!root.exists()) {
-                root.mkdir();
-                System.out.println("make root directory");
+            File git = new File("git/");
+            if (!git.exists()) {
+                git.mkdir();
+                System.out.println("make git directory");
                 
             }else{
-                x+=1;
+                counter+=1;
             }
             
 
@@ -30,7 +30,7 @@ public class Git{
                 System.out.println("make object directory");
 
             }else{
-                x+=1;
+                counter+=1;
             }
 
             File index = new File("git/index.txt");
@@ -41,7 +41,7 @@ public class Git{
                 e.printStackTrace();
             }
             if(!index.exists()){
-                x+=1;
+                counter+=1;
             }
             System.out.println("make index file");
             
@@ -54,10 +54,10 @@ public class Git{
             }
 
             if(!HEAD.exists()){
-                x+=1;
+                counter+=1;
             }
             System.out.println("make HEAD file");
-            if(x ==4){
+            if(counter == 4){
                 System.out.println("Git Repository Already Exists");
 
             }
