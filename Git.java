@@ -6,7 +6,6 @@ import java.nio.file.Files;
 public class Git{
         public static void main(String[] args) {
             initiate();
-            HashAndAdd.main(args);
 
     }
     public static void initiate(){
@@ -35,28 +34,26 @@ public class Git{
 
             File index = new File("git/index.txt");
             try {
-                index.createNewFile();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            if(!index.exists()){
-                counter+=1;
-            }
-            System.out.println("make index file");
-            
-            File HEAD = new File("git/HEAD.txt");
-            try {
-                HEAD.createNewFile();
+                if(!index.createNewFile()){
+                    counter+=1;
+                }
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
-            if(!HEAD.exists()){
-                counter+=1;
+            
+            File HEAD = new File("git/HEAD.txt");
+            try {
+                if(!HEAD.createNewFile()){
+                    counter+=1;
             }
-            System.out.println("make HEAD file");
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+
             if(counter == 4){
                 System.out.println("Git Repository Already Exists");
 

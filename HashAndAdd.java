@@ -6,52 +6,53 @@ import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HexFormat;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class HashAndAdd {
-    public static void main(String[] args) {
-        
-        try {
-            String hash;
-            hash = hashFile("hello.txt");
-            File blobFile = new File("git/objects/" + hash + ".txt");
-            FileWriter blobWriter = new FileWriter("git/objects/" + hash + ".txt");
-            String content = new String(Files.readAllBytes(Paths.get("hello.txt")));
-            blobWriter.write(content);//do file content;
-            blobWriter.close();
-            System.out.println(blobFile);
-            System.out.println(content);
-
-            writein("hello.txt");
 
 
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-
-
-  
-
-
-        
-        
-    }
     public static void addToIndex(String filename){
         try {
+            createBlob(filename);
             String hash = new String();
             hash = hashFile(filename);
-            FileWriter indexWriter = new FileWriter("git/index.txt");
-            indexWriter.write(hash + " " + filename);
-            System.lineSeparator();
+            File index = new File("git/index.txt");
+
+            StringBuilder oldContent = new StringBuilder();
+            BufferedReader br = new BufferedReader(new FileReader(index));
+
+            String oneLine = br.readLine();
+
+            while (oneLine != null) { 
+                oldContent.append(oneLine).append("\n");
+                oneLine = br.readLine();
+            }
+            br.close();
+
+
+            FileWriter indexWriter = new FileWriter(index);
+            indexWriter.write(oldContent.toString());
+            indexWriter.write(hash + " " + filename + "\n");
             indexWriter.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public static void createBlob(String fileName) throws IOException { 
+        String hash = hashFile(fileName);
+        File blob = new File("git/objects/" + hash + ".txt");
+        FileWriter blobWriter = new FileWriter("git/objects/" + hash + ".txt");
+        String content = new String(Files.readAllBytes(Paths.get(fileName)));
+        blobWriter.write(content);//do file content;
+        blobWriter.close();
+        System.out.println(blob);
+        System.out.println(content);
+        
     }
 
 
