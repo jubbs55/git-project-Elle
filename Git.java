@@ -6,7 +6,6 @@ import java.nio.file.Files;
 public class Git{
         public static void main(String[] args) {
             initiate();
-            HashAndAdd.main(args);
 
     }
     public static void initiate(){

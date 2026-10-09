@@ -13,37 +13,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class HashAndAdd {
-    public static void main(String[] args) {
-        
-        try {
-            String hash;
-            hash = hashFile("hello.txt");
-            File blobFile = new File("git/objects/" + hash + ".txt");
-            FileWriter blobWriter = new FileWriter("git/objects/" + hash + ".txt");
-            String content = new String(Files.readAllBytes(Paths.get("hello.txt")));
-            blobWriter.write(content);//do file content;
-            blobWriter.close();
-            System.out.println(blobFile);
-            System.out.println(content);
-
-            addToIndex("hello.txt");
 
 
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-
-
-  
-
-
-        
-        
-    }
     public static void addToIndex(String filename){
         try {
+            createBlob(filename);
             String hash = new String();
             hash = hashFile(filename);
             File index = new File("git/index.txt");
@@ -54,7 +28,7 @@ public class HashAndAdd {
             String oneLine = br.readLine();
 
             while (oneLine != null) { 
-                oldContent.append(oneLine);
+                oldContent.append(oneLine).append("\n");
                 oneLine = br.readLine();
             }
             br.close();
@@ -67,6 +41,18 @@ public class HashAndAdd {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void createBlob(String fileName) throws IOException { 
+        String hash = hashFile(fileName);
+        File blob = new File("git/objects/" + hash + ".txt");
+        FileWriter blobWriter = new FileWriter("git/objects/" + hash + ".txt");
+        String content = new String(Files.readAllBytes(Paths.get(fileName)));
+        blobWriter.write(content);//do file content;
+        blobWriter.close();
+        System.out.println(blob);
+        System.out.println(content);
+        
     }
 
 
